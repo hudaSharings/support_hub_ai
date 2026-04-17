@@ -89,6 +89,12 @@ Generated under:
 pytest
 ```
 
+## Runtime notes
+
+- First-time embedding model download may print Hugging Face warnings and model load logs.
+- Set `HF_TOKEN` in `.env` if you want higher HF Hub rate limits and fewer unauthenticated warnings.
+- Messages like `UNEXPECTED: embeddings.position_ids` from sentence-transformers model loading are typically informational for this setup and do not indicate resolver failure.
+
 ## Project docs
 - `docs/design_note.md`
 - `docs/ingest_guide.md`

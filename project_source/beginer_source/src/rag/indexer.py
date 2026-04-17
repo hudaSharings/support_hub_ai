@@ -1,5 +1,5 @@
 from langchain_core.documents import Document
-from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
 
@@ -20,7 +20,7 @@ def build_vector_index(
         )
         for chunk in chunks
     ]
-    embeddings = SentenceTransformerEmbeddings(model_name=embedding_model)
+    embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
     return Chroma.from_documents(
         documents=documents,
         embedding=embeddings,
