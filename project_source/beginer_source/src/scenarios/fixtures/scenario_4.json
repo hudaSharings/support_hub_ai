@@ -1,0 +1,6 @@
+{
+  "case_id": "SCN-4",
+  "title": "REST API rate limit complaint",
+  "description": "Org automation says API is broken but may be a rate limit issue.",
+  "org_id": "org-pro"
+}

@@ -1,0 +1,51 @@
+{
+  "organizations": {
+    "org-pro": {
+      "current_plan": "team",
+      "billing_status": "active",
+      "sso_enabled": true
+    },
+    "org-free": {
+      "current_plan": "free",
+      "billing_status": "past_due",
+      "sso_enabled": false
+    }
+  },
+  "entitlements": {
+    "org-pro": {
+      "advanced_security": true
+    },
+    "org-free": {
+      "advanced_security": false
+    }
+  },
+  "tokens": {
+    "token-ok": {
+      "sso_authorized": true,
+      "permissions": ["repo", "read:org"],
+      "revoked": false,
+      "expired": false
+    },
+    "token-fail": {
+      "sso_authorized": false,
+      "permissions": ["repo"],
+      "revoked": false,
+      "expired": false
+    }
+  },
+  "api_usage": {
+    "org-pro": {
+      "request_count": 12000,
+      "throttled_requests": 390
+    }
+  },
+  "case_history": {
+    "org-pro": [
+      "repeated unresolved token issue"
+    ]
+  },
+  "incidents": {
+    "api": [],
+    "sso": []
+  }
+}

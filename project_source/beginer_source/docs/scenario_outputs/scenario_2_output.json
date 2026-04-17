@@ -1,0 +1,37 @@
+{
+  "issue_type": "billing",
+  "docs_evidence": [
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses",
+      "chunk_id": "managing_your_plan_and_github_licenses_-_github_docs::chunk::14",
+      "excerpt": "g Declined card Locked account Azure sub connection Enterprise license usage Reference Actions runner pricing Azure bill",
+      "relevance_score": 0.23128472582786508
+    },
+    {
+      "source_url": "https://docs.github.com/billing/managing-the-plan-for-your-github-account/upgrading-your-accounts-plan",
+      "chunk_id": "upgrading_your_account&#x27;s_plan_-_github_docs::chunk::14",
+      "excerpt": "ubleshooting Declined card Locked account Azure sub connection Enterprise license usage Reference Actions runner pricing",
+      "relevance_score": 0.20101974826176827
+    },
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses/downgrade-plan",
+      "chunk_id": "downgrading_your_account&#x27;s_plan_-_github_docs::chunk::14",
+      "excerpt": " Troubleshooting Declined card Locked account Azure sub connection Enterprise license usage Reference Actions runner pri",
+      "relevance_score": 0.19971167867138417
+    }
+  ],
+  "tools_used": [
+    "get_subscription_state",
+    "get_entitlement_status"
+  ],
+  "important_findings": [
+    "{'org_id': 'org-free', 'plan': 'free', 'billing_status': 'past_due'}",
+    "{'org_id': 'org-free', 'feature_name': 'advanced_security', 'enabled': False}"
+  ],
+  "decision": "clarify",
+  "decision_rationale": "Auth/entitlement mismatch needs validation or specialist escalation.",
+  "customer_response": "To proceed, please share organization id/name, failing action or endpoint, timestamp, and the exact error message.",
+  "internal_note": "Clarification requested due to missing information.",
+  "escalation_artifact_id": null,
+  "metadata": {}
+}

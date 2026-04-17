@@ -1,0 +1,7 @@
+{
+  "case_id": "SCN-3",
+  "title": "PAT failing for org resources",
+  "description": "PAT works for user actions but fails for organization resources.",
+  "org_id": "org-pro",
+  "metadata": {"token_id": "token-fail"}
+}

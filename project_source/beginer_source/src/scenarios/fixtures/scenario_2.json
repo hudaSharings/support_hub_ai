@@ -1,0 +1,6 @@
+{
+  "case_id": "SCN-2",
+  "title": "Paid features locked",
+  "description": "Customer reports paid features unavailable and asks if billing is causing access lock.",
+  "org_id": "org-free"
+}

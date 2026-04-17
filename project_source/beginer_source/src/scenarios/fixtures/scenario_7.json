@@ -1,0 +1,6 @@
+{
+  "case_id": "SCN-7",
+  "title": "Ambiguous complaint",
+  "description": "GitHub is broken for our org.",
+  "org_id": null
+}

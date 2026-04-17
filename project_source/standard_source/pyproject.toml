@@ -1,0 +1,15 @@
+[project]
+name = "tech-customer-support-ai"
+version = "0.1.0"
+description = "Standard architecture support resolution starter project"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

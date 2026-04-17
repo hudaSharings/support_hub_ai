@@ -1,0 +1,37 @@
+{
+  "issue_type": "token_auth",
+  "docs_evidence": [
+    {
+      "source_url": "https://docs.github.com/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/saml-configuration-reference",
+      "chunk_id": "saml_configuration_reference_-_github_enterprise_cloud_docs::chunk::15",
+      "excerpt": "e Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure SAML on Okta Find ID fo",
+      "relevance_score": 0.18567787393531776
+    },
+    {
+      "source_url": "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise",
+      "chunk_id": "configuring_saml_single_sign-on_for_your_enterprise_-_github_enterprise_cloud_docs::chunk::15",
+      "excerpt": "ganization to enterprise Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure ",
+      "relevance_score": 0.18468784446379682
+    },
+    {
+      "source_url": "https://docs.github.com/github/authenticating-to-github/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on",
+      "chunk_id": "authorizing_a_personal_access_token_for_use_with_single_sign-on_-_github_enterprise_cloud_docs::chunk::3",
+      "excerpt": "access token with SSO Home Authentication Account security Authentication to GitHub Create a strong password Switching b",
+      "relevance_score": 0.15384014457018835
+    }
+  ],
+  "tools_used": [
+    "diagnose_token_auth",
+    "get_case_history"
+  ],
+  "important_findings": [
+    "{'sso_authorized': False, 'permissions': ['repo'], 'revoked': False, 'expired': False}",
+    "{'org_id': 'org-pro', 'events': ['repeated unresolved token issue']}"
+  ],
+  "decision": "escalate",
+  "decision_rationale": "Repeated unresolved case history indicates escalation path.",
+  "customer_response": "We have escalated this case to a specialist team and will update you shortly.",
+  "internal_note": "Escalation response generated via fallback template. Escalation artifact: ESC-SCN-6",
+  "escalation_artifact_id": "ESC-SCN-6",
+  "metadata": {}
+}

@@ -1,0 +1,18 @@
+{
+  "user-1:thread-a": [
+    {
+      "user_message": "API failing for org automation Our scripts are failing with API errors and may be rate-limited.",
+      "decision": "resolve",
+      "decision_rationale": "Tool evidence and docs indicate rate limiting with clear mitigation.",
+      "customer_response": "We identified likely cause(s) and recommended actions based on documentation and account checks.",
+      "internal_note": "Resolved using combined documentation citations and tool findings."
+    },
+    {
+      "user_message": "REST API rate limit complaint Org automation says API is broken but may be a rate limit issue.\n\nPrevious thread context:\n- User: API failing for org automation Our scripts are failing with API errors and may be rate-limited. | Decision: resolve",
+      "decision": "resolve",
+      "decision_rationale": "Tool evidence and docs indicate rate limiting with clear mitigation.",
+      "customer_response": "We identified likely cause(s) and recommended actions based on documentation and account checks.",
+      "internal_note": "Resolved using combined documentation citations and tool findings."
+    }
+  ]
+}

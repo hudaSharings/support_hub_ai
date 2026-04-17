@@ -1,0 +1,7 @@
+{
+  "case_id": "SCN-1",
+  "title": "Feature entitlement dispute",
+  "description": "Customer says advanced security feature is missing from org settings.",
+  "org_id": "org-pro",
+  "metadata": {"feature_name": "advanced_security"}
+}

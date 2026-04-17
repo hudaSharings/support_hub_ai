@@ -1,0 +1,7 @@
+{
+  "case_id": "SCN-6",
+  "title": "Repeated unresolved authentication issue",
+  "description": "Token and SSO issue has failed multiple previous resolutions.",
+  "org_id": "org-pro",
+  "metadata": {"token_id": "token-fail"}
+}

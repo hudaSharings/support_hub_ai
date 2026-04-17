@@ -1,0 +1,39 @@
+{
+  "issue_type": "saml_identity",
+  "docs_evidence": [
+    {
+      "source_url": "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise",
+      "chunk_id": "configuring_saml_single_sign-on_for_your_enterprise_-_github_enterprise_cloud_docs::chunk::15",
+      "excerpt": "ganization to enterprise Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure ",
+      "relevance_score": 0.6536552167152112
+    },
+    {
+      "source_url": "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/troubleshooting-saml-authentication",
+      "chunk_id": "troubleshooting_saml_authentication_-_github_enterprise_cloud_docs::chunk::15",
+      "excerpt": " enterprise Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure SAML on Okta ",
+      "relevance_score": 0.6450569856644736
+    },
+    {
+      "source_url": "https://docs.github.com/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/saml-configuration-reference",
+      "chunk_id": "saml_configuration_reference_-_github_enterprise_cloud_docs::chunk::15",
+      "excerpt": "e Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure SAML on Okta Find ID fo",
+      "relevance_score": 0.6357473790311448
+    }
+  ],
+  "tools_used": [
+    "get_case_history",
+    "get_service_incidents",
+    "get_service_incidents"
+  ],
+  "important_findings": [
+    "{'org_id': 'org-pro', 'events': ['repeated unresolved token issue']}",
+    "{'component': 'api', 'incidents': []}",
+    "{'component': 'api', 'incidents': []}"
+  ],
+  "decision": "escalate",
+  "decision_rationale": "Repeated unresolved case history indicates escalation path.",
+  "customer_response": "We have escalated this case to a specialist team and will update you shortly.",
+  "internal_note": "Escalation response generated via fallback template. Escalation artifact: ESC-SCN-5",
+  "escalation_artifact_id": "ESC-SCN-5",
+  "metadata": {}
+}

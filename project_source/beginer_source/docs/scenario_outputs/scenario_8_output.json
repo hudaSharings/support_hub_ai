@@ -1,0 +1,37 @@
+{
+  "issue_type": "billing",
+  "docs_evidence": [
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/troubleshooting",
+      "chunk_id": "billing_troubleshooting_-_github_docs::chunk::0",
+      "excerpt": "Billing troubleshooting - GitHub Docs Skip to main content GitHub Docs Version: Free, Pro, &amp; Team Search or ask Copi",
+      "relevance_score": 0.29104634391170514
+    },
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses",
+      "chunk_id": "managing_your_plan_and_github_licenses_-_github_docs::chunk::3",
+      "excerpt": " started How billing works Introduction to billing Billing manager onboard Concepts Billing cycles Budgets and alerts Co",
+      "relevance_score": 0.21921496423240627
+    },
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/troubleshooting",
+      "chunk_id": "billing_troubleshooting_-_github_docs::chunk::3",
+      "excerpt": "ks Introduction to billing Billing manager onboard Concepts Billing cycles Budgets and alerts Cost centers Azure subscri",
+      "relevance_score": 0.19423612870024287
+    }
+  ],
+  "tools_used": [
+    "get_subscription_state",
+    "get_entitlement_status"
+  ],
+  "important_findings": [
+    "{'org_id': 'org-pro', 'plan': 'team', 'billing_status': 'active'}",
+    "{'org_id': 'org-pro', 'feature_name': 'advanced_security', 'enabled': True}"
+  ],
+  "decision": "resolve",
+  "decision_rationale": "Sufficient evidence available for initial guided resolution.",
+  "customer_response": "We identified likely cause(s) and recommended actions based on documentation and account checks.",
+  "internal_note": "Resolved using combined documentation citations and tool findings.",
+  "escalation_artifact_id": null,
+  "metadata": {}
+}

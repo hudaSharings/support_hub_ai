@@ -1,0 +1,37 @@
+{
+  "issue_type": "unknown",
+  "docs_evidence": [
+    {
+      "source_url": "https://docs.github.com/en/billing/how-tos/troubleshooting",
+      "chunk_id": "billing_troubleshooting_-_github_docs::chunk::0",
+      "excerpt": "Billing troubleshooting - GitHub Docs Skip to main content GitHub Docs Version: Free, Pro, &amp; Team Search or ask Copi",
+      "relevance_score": 0.42073582140869803
+    },
+    {
+      "source_url": "https://docs.github.com/billing/managing-the-plan-for-your-github-account/upgrading-your-accounts-plan",
+      "chunk_id": "upgrading_your_account&#x27;s_plan_-_github_docs::chunk::0",
+      "excerpt": "Upgrading your account&#x27;s plan - GitHub Docs Skip to main content GitHub Docs Version: Free, Pro, &amp; Team Search ",
+      "relevance_score": 0.4092260649894035
+    },
+    {
+      "source_url": "https://docs.github.com/en/get-started/learning-about-github/githubs-plans",
+      "chunk_id": "github&#x27;s_plans_-_github_docs::chunk::0",
+      "excerpt": "GitHub&#x27;s plans - GitHub Docs Skip to main content GitHub Docs Version: Free, Pro, &amp; Team Search or ask Copilot ",
+      "relevance_score": 0.4058345502365803
+    }
+  ],
+  "tools_used": [
+    "get_service_incidents",
+    "get_service_incidents"
+  ],
+  "important_findings": [
+    "{'component': 'api', 'incidents': []}",
+    "{'component': 'api', 'incidents': []}"
+  ],
+  "decision": "clarify",
+  "decision_rationale": "Missing required identifiers to continue targeted diagnostics.",
+  "customer_response": "To proceed, please share organization id/name, failing action or endpoint, timestamp, and the exact error message.",
+  "internal_note": "Clarification requested due to missing information.",
+  "escalation_artifact_id": null,
+  "metadata": {}
+}

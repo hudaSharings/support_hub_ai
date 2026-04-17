@@ -1,0 +1,6 @@
+{
+  "case_id": "SCN-5",
+  "title": "SAML SSO login failure",
+  "description": "Organization users cannot authenticate through SAML SSO.",
+  "org_id": "org-pro"
+}

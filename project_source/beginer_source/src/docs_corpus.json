@@ -1,0 +1,22 @@
+[
+  {
+    "source_url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+    "title": "Rate limits for the REST API",
+    "content": "GitHub REST API uses rate limits. Exceeding limits returns throttling responses."
+  },
+  {
+    "source_url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens",
+    "title": "Managing personal access tokens",
+    "content": "PAT failures can be caused by permissions, expiration, revocation, or missing organization authorization."
+  },
+  {
+    "source_url": "https://docs.github.com/en/billing/get-started/how-billing-works",
+    "title": "How billing works",
+    "content": "Billing status and subscription state can affect feature availability."
+  },
+  {
+    "source_url": "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/troubleshooting-saml-authentication",
+    "title": "Troubleshooting SAML authentication",
+    "content": "SAML issues may require checking certificates, identity provider configuration, and enterprise scope settings."
+  }
+]
