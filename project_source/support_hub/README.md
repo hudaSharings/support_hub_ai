@@ -34,8 +34,7 @@ Open <http://localhost:3000>.
 
 - `DATABASE_URL` - Neon connection string
 - `RESOLVER_PROVIDER` - `beginner` or `standard`
-- `BEGINNER_RESOLVER_BASE_URL` - e.g. `http://localhost:8000`
-- `STANDARD_RESOLVER_BASE_URL` - e.g. `http://localhost:8100`
+- `RESOLVER_BASE_URL` - e.g. `http://localhost:8000` (change this when switching resolver backend)
 - `NEXT_PUBLIC_APP_NAME` - UI title
 
 ## Beginner resolver integration
@@ -51,7 +50,7 @@ Then in `support_hub`, set:
 
 ```bash
 RESOLVER_PROVIDER=beginner
-BEGINNER_RESOLVER_BASE_URL=http://localhost:8000
+RESOLVER_BASE_URL=http://localhost:8000
 ```
 
 Create a case and click "Resolve case" from the case detail page.
@@ -65,6 +64,14 @@ npm run db:seed
 ```
 
 The seed is idempotent and safe to run multiple times.
+
+## Auth and org assignment
+
+- The app now uses seeded `app_users` and `user_org_memberships` for a realistic multi-org setup.
+- Users authenticate via the login page (cookie-based demo auth).
+- New cases auto-generate `caseId` and auto-assign `customerId` and `orgId` from the logged-in membership.
+- Case visibility is org-scoped (users only see and access cases for their active org).
+- Admin-only management is available at `/admin` for adding users, creating organizations, and mapping users to orgs with role assignment (`admin`, `agent`, `viewer`).
 
 ## Database schema coverage
 

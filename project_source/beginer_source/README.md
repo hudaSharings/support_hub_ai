@@ -22,12 +22,12 @@ For best code navigation (`Go to Definition/Implementation`), open `project_sour
 
 Health:
 ```bash
-python3 -m src.app.main --health
+uv run python -m src.app.main --health
 ```
 
 Run API server (for Postman/UI):
 ```bash
-python3 -m src.app.main --serve-api --host 0.0.0.0 --port 8000
+uv run python -m src.app.main --serve-api --host 0.0.0.0 --port 8000
 ```
 
 API endpoints:
@@ -50,27 +50,27 @@ Example `POST /resolve` body:
 
 Demo case:
 ```bash
-python3 -m src.app.main --demo
+uv run python -m src.app.main --demo
 ```
 
 Ingest RAG corpus from URL seed file (one URL per line):
 ```bash
-python3 -m src.app.main --ingest-urls-file src/data/docs_seed_urls.txt
+uv run python -m src.app.main --ingest-urls-file src/data/docs_seed_urls.txt
 ```
 
 Run all required scenarios:
 ```bash
-python3 -m src.app.main --run-scenarios
+uv run python -m src.app.main --run-scenarios
 ```
 
 Run a single case from JSON file:
 ```bash
-python3 -m src.app.main --case-file src/scenarios/fixtures/scenario_3.json
+uv run python -m src.app.main --case-file src/scenarios/fixtures/scenario_3.json
 ```
 
 Run with session/thread context:
 ```bash
-python3 -m src.app.main --case-file src/scenarios/fixtures/scenario_3.json --session-id demo-user --thread-id support-thread-1
+uv run python -m src.app.main --case-file src/scenarios/fixtures/scenario_3.json --session-id demo-user --thread-id support-thread-1
 ```
 
 Session/thread state uses LangGraph checkpointer (`InMemorySaver`) and `configurable.thread_id` at invoke time.

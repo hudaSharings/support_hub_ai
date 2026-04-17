@@ -1,7 +1,9 @@
 import { desc, eq } from "drizzle-orm";
 
+import type { SessionContext } from "@/lib/auth/session";
 import { getDb } from "@/lib/db/client";
 import {
+  caseHistoryEvents,
   resolverRuns,
   supportCaseAiOutcomes,
   supportCases,
@@ -10,11 +12,11 @@ import { getResolverProvider } from "@/lib/resolver/providers";
 import type { ResolverDecision, ResolverOutput } from "@/lib/resolver/types";
 
 type CreateCaseInput = {
-  caseId: string;
   title: string;
   description: string;
-  customerId?: string;
-  orgId?: string;
+  orgId: string;
+  customerId: string;
+  actor: string;
   severity?: string;
   metadata?: Record<string, string>;
 };
@@ -25,10 +27,23 @@ const statusByDecision: Record<ResolverDecision, typeof supportCases.$inferInser
   escalate: "escalated",
 };
 
-export const listCases = async () => {
+const generateCaseId = () => {
+  const stamp = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  const random = Math.floor(Math.random() * 900 + 100);
+  return `CASE-${stamp}-${random}`;
+};
+
+const newEventId = () => {
+  const stamp = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 17);
+  const random = Math.floor(Math.random() * 9000 + 1000);
+  return `evt_${stamp}_${random}`;
+};
+
+export const listCases = async (session: SessionContext) => {
   try {
     const db = getDb();
     return db.query.supportCases.findMany({
+      where: eq(supportCases.orgId, session.orgId),
       orderBy: [desc(supportCases.updatedAt)],
       limit: 50,
     });
@@ -59,16 +74,27 @@ export const getCaseDetail = async (caseId: string) => {
 
 export const createCase = async (input: CreateCaseInput) => {
   const db = getDb();
+  const caseId = generateCaseId();
   await db.insert(supportCases).values({
-    caseId: input.caseId,
+    caseId,
     title: input.title,
     description: input.description,
-    customerId: input.customerId ?? null,
-    orgId: input.orgId ?? null,
+    customerId: input.customerId,
+    orgId: input.orgId,
     severity: input.severity ?? "medium",
     status: "new",
     metadata: input.metadata ?? {},
   });
+
+  await db.insert(caseHistoryEvents).values({
+    eventId: newEventId(),
+    caseId,
+    eventType: "case_created",
+    actor: input.actor,
+    notes: "Case created from Support Hub form.",
+  });
+
+  return caseId;
 };
 
 const persistOutcome = async (caseId: string, output: ResolverOutput) => {

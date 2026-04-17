@@ -12,7 +12,7 @@ const jsonHeaders = {
 export const beginnerProvider: ResolverProvider = {
   providerName: "beginner",
   async health() {
-    const res = await fetch(`${env.beginnerResolverBaseUrl}/health`, {
+    const res = await fetch(`${env.resolverBaseUrl}/health`, {
       method: "GET",
       cache: "no-store",
     });
@@ -24,7 +24,7 @@ export const beginnerProvider: ResolverProvider = {
     return (await res.json()) as { status: string };
   },
   async resolveCase(payload: SupportCaseInputPayload): Promise<ResolverOutput> {
-    const res = await fetch(`${env.beginnerResolverBaseUrl}/resolve`, {
+    const res = await fetch(`${env.resolverBaseUrl}/resolve`, {
       method: "POST",
       headers: jsonHeaders,
       body: JSON.stringify(payload),

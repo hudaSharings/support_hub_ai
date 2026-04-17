@@ -11,6 +11,7 @@ This map helps learners and mentors quickly navigate the documentation set witho
 - [`LLD.md`](./LLD.md) - module-level design, data contracts, state model, interfaces, test design
 - [`PHASE_IMPLEMENTATION_GUIDE.md`](./PHASE_IMPLEMENTATION_GUIDE.md) - phase-by-phase code snippets with tutor explanations
 - [`BUSINESS_APP_SUPPORT_HUB.md`](./BUSINESS_APP_SUPPORT_HUB.md) - shared business app architecture for ticketing + resolver integration
+- [`BEGINNER_SOURCE_PRODUCTION_READINESS_CHECKLIST.md`](./BEGINNER_SOURCE_PRODUCTION_READINESS_CHECKLIST.md) - deployment hardening checklist for `beginer_source`
 - [`Final_kata.md`](../Final_kata.md) - assignment source-of-truth requirements
 
 ---

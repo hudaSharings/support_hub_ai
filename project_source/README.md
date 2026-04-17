@@ -16,14 +16,14 @@ This folder contains two AI resolver templates and one shared business applicati
 cd beginer_source
 uv sync
 cp .env.example .env
-python3 -m src.app.main --health
-python3 -m src.app.main --demo
-python3 -m src.app.main --run-scenarios
+uv run python -m src.app.main --health
+uv run python -m src.app.main --demo
+uv run python -m src.app.main --run-scenarios
 ```
 
 Run API server (for Postman/UI):
 ```bash
-python3 -m src.app.main --serve-api --host 0.0.0.0 --port 8000
+uv run python -m src.app.main --serve-api --host 0.0.0.0 --port 8000
 ```
 
 Quick Postman checks (beginner API):
@@ -55,8 +55,8 @@ Quick Postman checks (beginner API):
 cd standard_source
 uv sync
 cp .env.example .env
-python3 -m src.app.main --health
-python3 -m src.app.main --demo
+uv run python -m src.app.main --health
+uv run python -m src.app.main --demo
 ```
 
 ### `support_hub`

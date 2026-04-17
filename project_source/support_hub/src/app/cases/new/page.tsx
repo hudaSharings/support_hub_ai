@@ -1,8 +1,10 @@
 import Link from "next/link";
 
 import { createCaseAction } from "@/app/actions";
+import { requireSessionContext } from "@/lib/auth/session";
 
-export default function NewCasePage() {
+export default async function NewCasePage() {
+  const session = await requireSessionContext();
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-6 py-8">
       <header className="space-y-2">
@@ -10,33 +12,25 @@ export default function NewCasePage() {
           Back to dashboard
         </Link>
         <h1 className="text-2xl font-semibold tracking-tight">Create support case</h1>
+        <p className="text-sm text-muted-foreground">
+          Case ID is generated automatically and assigned to org {session.orgId}.
+        </p>
       </header>
 
       <form action={createCaseAction} className="space-y-4 rounded-lg border bg-card p-5">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="space-y-1 text-sm">
-            <span>Case ID *</span>
-            <input
-              name="caseId"
-              required
-              placeholder="CASE-1001"
-              className="w-full rounded-md border bg-background px-3 py-2"
-            />
-          </label>
-          <label className="space-y-1 text-sm">
-            <span>Severity</span>
-            <select
-              name="severity"
-              defaultValue="medium"
-              className="w-full rounded-md border bg-background px-3 py-2"
-            >
-              <option value="low">low</option>
-              <option value="medium">medium</option>
-              <option value="high">high</option>
-              <option value="critical">critical</option>
-            </select>
-          </label>
-        </div>
+        <label className="space-y-1 text-sm">
+          <span>Severity</span>
+          <select
+            name="severity"
+            defaultValue="medium"
+            className="w-full rounded-md border bg-background px-3 py-2"
+          >
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+            <option value="critical">critical</option>
+          </select>
+        </label>
 
         <label className="space-y-1 text-sm">
           <span>Title *</span>
@@ -58,25 +52,6 @@ export default function NewCasePage() {
             className="w-full rounded-md border bg-background px-3 py-2"
           />
         </label>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="space-y-1 text-sm">
-            <span>Customer ID</span>
-            <input
-              name="customerId"
-              placeholder="cust-1"
-              className="w-full rounded-md border bg-background px-3 py-2"
-            />
-          </label>
-          <label className="space-y-1 text-sm">
-            <span>Organization ID</span>
-            <input
-              name="orgId"
-              placeholder="org-pro"
-              className="w-full rounded-md border bg-background px-3 py-2"
-            />
-          </label>
-        </div>
 
         <button
           type="submit"

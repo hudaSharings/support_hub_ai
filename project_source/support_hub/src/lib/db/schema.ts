@@ -28,6 +28,8 @@ export const decisionEnum = pgEnum("resolver_decision", [
 ]);
 
 export const providerEnum = pgEnum("resolver_provider", ["beginner", "standard"]);
+export const userRoleEnum = pgEnum("user_role", ["agent", "admin", "viewer"]);
+export const globalRoleEnum = pgEnum("global_role", ["user", "super_admin"]);
 
 export const customers = pgTable("customers", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -213,5 +215,28 @@ export const resolverProviders = pgTable("resolver_providers", {
   name: providerEnum("name").notNull().unique(),
   baseUrl: text("base_url").notNull(),
   active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const appUsers = pgTable("app_users", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: varchar("user_id", { length: 64 }).notNull().unique(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  fullName: varchar("full_name", { length: 255 }).notNull(),
+  password: varchar("password", { length: 255 }).notNull(),
+  globalRole: globalRoleEnum("global_role").default("user").notNull(),
+  status: varchar("status", { length: 32 }).default("active").notNull(),
+  defaultOrgId: varchar("default_org_id", { length: 64 }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const userOrgMemberships = pgTable("user_org_memberships", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  membershipId: varchar("membership_id", { length: 64 }).notNull().unique(),
+  userId: varchar("user_id", { length: 64 }).notNull(),
+  orgId: varchar("org_id", { length: 64 }).notNull(),
+  customerId: varchar("customer_id", { length: 64 }).notNull(),
+  role: userRoleEnum("role").default("agent").notNull(),
+  isDefault: boolean("is_default").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });

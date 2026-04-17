@@ -5,14 +5,24 @@ const required = (value: string | undefined, name: string): string => {
   return value;
 };
 
+const normalizeDatabaseUrl = (value: string): string => {
+  try {
+    const url = new URL(value);
+    // Avoid pg warning and keep strict TLS semantics.
+    if (url.searchParams.get("sslmode") === "require") {
+      url.searchParams.set("sslmode", "verify-full");
+    }
+    return url.toString();
+  } catch {
+    return value;
+  }
+};
+
 export const env = {
   get databaseUrl(): string {
-    return required(process.env.DATABASE_URL, "DATABASE_URL");
+    return normalizeDatabaseUrl(required(process.env.DATABASE_URL, "DATABASE_URL"));
   },
   resolverProvider: process.env.RESOLVER_PROVIDER ?? "beginner",
-  beginnerResolverBaseUrl:
-    process.env.BEGINNER_RESOLVER_BASE_URL ?? "http://localhost:8000",
-  standardResolverBaseUrl:
-    process.env.STANDARD_RESOLVER_BASE_URL ?? "http://localhost:8100",
+  resolverBaseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000",
   appName: process.env.NEXT_PUBLIC_APP_NAME ?? "Support Hub",
 };

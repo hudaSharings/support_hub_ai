@@ -4,6 +4,7 @@ import { and, eq } from "drizzle-orm";
 
 import { getDb } from "../src/lib/db/client";
 import {
+  appUsers,
   apiUsage,
   caseHistoryEvents,
   customers,
@@ -19,6 +20,7 @@ import {
   supportCaseAiOutcomes,
   supportCases,
   tokenRecords,
+  userOrgMemberships,
 } from "../src/lib/db/schema";
 
 const nowIso = () => new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
@@ -29,8 +31,8 @@ const seedProviders = async () => {
   await db
     .insert(resolverProviders)
     .values([
-      { name: "beginner", baseUrl: process.env.BEGINNER_RESOLVER_BASE_URL ?? "http://localhost:8000" },
-      { name: "standard", baseUrl: process.env.STANDARD_RESOLVER_BASE_URL ?? "http://localhost:8100" },
+      { name: "beginner", baseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000" },
+      { name: "standard", baseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000" },
     ])
     .onConflictDoUpdate({
       target: resolverProviders.name,
@@ -320,9 +322,77 @@ const seedCasesAndOps = async () => {
   }
 };
 
+const seedUsersAndMemberships = async () => {
+  const db = getDb();
+
+  await db
+    .insert(appUsers)
+    .values([
+      {
+        userId: "user_alice",
+        email: "alice@acme.com",
+        fullName: "Alice Chen",
+        password: "Pass@123",
+        globalRole: "super_admin",
+        status: "active",
+        defaultOrgId: "org_acme_platform",
+      },
+      {
+        userId: "user_bob",
+        email: "bob@acme.com",
+        fullName: "Bob Singh",
+        password: "Pass@123",
+        globalRole: "user",
+        status: "active",
+        defaultOrgId: "org_acme_platform",
+      },
+      {
+        userId: "user_clara",
+        email: "clara@globex.com",
+        fullName: "Clara Gomez",
+        password: "Pass@123",
+        globalRole: "user",
+        status: "active",
+        defaultOrgId: "org_globex_api",
+      },
+    ])
+    .onConflictDoNothing({ target: appUsers.email });
+
+  await db
+    .insert(userOrgMemberships)
+    .values([
+      {
+        membershipId: "mem_alice_acme",
+        userId: "user_alice",
+        orgId: "org_acme_platform",
+        customerId: "cust_acme",
+        role: "admin",
+        isDefault: true,
+      },
+      {
+        membershipId: "mem_bob_acme",
+        userId: "user_bob",
+        orgId: "org_acme_platform",
+        customerId: "cust_acme",
+        role: "agent",
+        isDefault: true,
+      },
+      {
+        membershipId: "mem_clara_globex",
+        userId: "user_clara",
+        orgId: "org_globex_api",
+        customerId: "cust_globex",
+        role: "admin",
+        isDefault: true,
+      },
+    ])
+    .onConflictDoNothing({ target: userOrgMemberships.membershipId });
+};
+
 const run = async () => {
   await seedProviders();
   await seedBusinessEntities();
+  await seedUsersAndMemberships();
   await seedCasesAndOps();
   console.log("Seed completed.");
 };
