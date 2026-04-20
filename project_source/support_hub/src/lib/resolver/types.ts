@@ -18,6 +18,8 @@ export type ResolverOutput = {
   required_tools?: string[];
   missing_information?: string[];
   docs_evidence?: Record<string, unknown>[];
+  tools_used?: string[];
+  important_findings?: string[];
   tool_evidence?: Record<string, unknown>[];
   decision: ResolverDecision;
   decision_rationale?: string;
@@ -27,7 +29,7 @@ export type ResolverOutput = {
 };
 
 export type ResolverProvider = {
-  providerName: "beginner" | "standard";
+  providerName: "resolver";
   health: () => Promise<{ status: string }>;
   resolveCase: (payload: SupportCaseInputPayload) => Promise<ResolverOutput>;
 };

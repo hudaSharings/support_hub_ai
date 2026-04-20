@@ -22,7 +22,6 @@ export const env = {
   get databaseUrl(): string {
     return normalizeDatabaseUrl(required(process.env.DATABASE_URL, "DATABASE_URL"));
   },
-  resolverProvider: process.env.RESOLVER_PROVIDER ?? "beginner",
   resolverBaseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000",
   appName: process.env.NEXT_PUBLIC_APP_NAME ?? "Support Hub",
 };

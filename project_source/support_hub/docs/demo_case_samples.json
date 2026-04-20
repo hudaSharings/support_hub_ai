@@ -1,0 +1,369 @@
+{
+  "notes": [
+    "Use these as Create Case payload templates in support_hub.",
+    "caseId is auto-generated in the app; keep title/description/severity/category and optional metadata.",
+    "Set orgId/customerId through logged-in org membership (or align manually if using scripts)."
+  ],
+  "scenarios": [
+    {
+      "scenarioId": 1,
+      "scenarioName": "Feature entitlement dispute",
+      "samples": [
+        {
+          "title": "Code security panel missing despite Enterprise Cloud contract",
+          "description": "Our platform org renewed Enterprise Cloud last month, but code security options are not visible in repository settings for newly created repos.",
+          "severity": "medium",
+          "issueCategory": "entitlement_dispute",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "feature_name": "advanced_security",
+            "reported_by_role": "org_owner",
+            "affected_scope": "new_repositories"
+          }
+        },
+        {
+          "title": "Secret scanning unavailable for one org in enterprise account",
+          "description": "Secret scanning is enabled at enterprise policy level, but one child organization cannot enable it and sees feature unavailable.",
+          "severity": "high",
+          "issueCategory": "entitlement_dispute",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "feature_name": "secret_scanning",
+            "affected_org_count": "1",
+            "enterprise_scope_expected": "true"
+          }
+        },
+        {
+          "title": "Audit log streaming toggle hidden after org migration",
+          "description": "After moving repositories to a new organization, admin cannot find audit log streaming setup and believes entitlement was removed.",
+          "severity": "medium",
+          "issueCategory": "entitlement_dispute",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "feature_name": "audit_log_streaming",
+            "migration_recent": "true",
+            "ui_path_reported": "organization settings"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 2,
+      "scenarioName": "Paid features locked",
+      "samples": [
+        {
+          "title": "Team plan org cannot use protected environments",
+          "description": "Billing shows active paid subscription, but deployment protection rules are disabled with a message that plan upgrade is required.",
+          "severity": "high",
+          "issueCategory": "billing_access_lock",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "feature_name": "environment_protection_rules",
+            "billing_status_claimed": "paid",
+            "first_seen_at": "after_invoice_cycle"
+          }
+        },
+        {
+          "title": "Actions minutes unexpectedly blocked on paid org",
+          "description": "CI pipelines stopped because Actions minutes appear exhausted even though finance confirms invoice payment was completed.",
+          "severity": "high",
+          "issueCategory": "billing_access_lock",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "feature_name": "actions_minutes",
+            "impact_area": "ci_cd",
+            "automation_blocked": "true"
+          }
+        },
+        {
+          "title": "Copilot for Business seats not usable after renewal",
+          "description": "Renewal was processed but assigned users cannot access Copilot Business features and see plan limitation prompts.",
+          "severity": "medium",
+          "issueCategory": "billing_access_lock",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "feature_name": "copilot_business",
+            "renewal_event": "recent",
+            "seat_assignment_complete": "true"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 3,
+      "scenarioName": "PAT failing for organization resources",
+      "samples": [
+        {
+          "title": "PAT works for personal repos but 403 on org repo settings",
+          "description": "Developer can list personal repositories but gets 403 when reading organization repository settings via REST API.",
+          "severity": "medium",
+          "issueCategory": "pat_auth_failure",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "token_id": "token_globex_pat_01",
+            "http_status": "403",
+            "endpoint_family": "org_repository_admin"
+          }
+        },
+        {
+          "title": "Fine-grained PAT rejected for org-level webhooks endpoint",
+          "description": "Token authenticates successfully but fails on organization webhook APIs with resource not accessible by personal access token.",
+          "severity": "medium",
+          "issueCategory": "pat_auth_failure",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "token_id": "token_globex_pat_01",
+            "error_snippet": "resource not accessible",
+            "api_surface": "org_webhooks"
+          }
+        },
+        {
+          "title": "PAT stopped working for org projects after SSO enforcement",
+          "description": "Same token used in automation now fails only for org project APIs after organization enabled stricter SSO requirements.",
+          "severity": "high",
+          "issueCategory": "pat_auth_failure",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "token_id": "token_acme_gha_01",
+            "sso_change_window": "last_24h",
+            "affected_endpoints": "projects_api"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 4,
+      "scenarioName": "REST API rate limit complaint",
+      "samples": [
+        {
+          "title": "Nightly integration reports GitHub outage due to 429 spikes",
+          "description": "Customer says GitHub API is unstable because overnight jobs return many 429 responses and delayed retries.",
+          "severity": "medium",
+          "issueCategory": "api_rate_limit",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "http_status": "429",
+            "time_window": "nightly_batch",
+            "workflow_name": "data_sync"
+          }
+        },
+        {
+          "title": "Webhook replay worker hitting secondary rate limit",
+          "description": "Replay service makes burst requests and receives secondary rate limit errors even though primary limit seems available.",
+          "severity": "high",
+          "issueCategory": "api_rate_limit",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "limit_type_suspected": "secondary",
+            "request_pattern": "burst",
+            "api_type": "rest"
+          }
+        },
+        {
+          "title": "Enterprise export tool throttled across multiple runners",
+          "description": "Export jobs from multiple runners trigger throttling and customer suspects platform regression after no code changes.",
+          "severity": "medium",
+          "issueCategory": "api_rate_limit",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "parallel_workers": "12",
+            "retry_strategy": "none",
+            "impact_scope": "reporting_pipeline"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 5,
+      "scenarioName": "SAML SSO login failure",
+      "samples": [
+        {
+          "title": "Users blocked from org login after IdP certificate rotation",
+          "description": "All users are redirected to IdP but fail on return with signature validation error after certificate rollover.",
+          "severity": "critical",
+          "issueCategory": "saml_sso_failure",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "idp_name": "okta",
+            "error_hint": "invalid_signature",
+            "change_event": "cert_rotation"
+          }
+        },
+        {
+          "title": "Subset of users cannot complete SAML login",
+          "description": "Only users in a specific identity group fail SAML authentication while admins still succeed.",
+          "severity": "high",
+          "issueCategory": "saml_sso_failure",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "affected_population": "group_scoped",
+            "idp_name": "okta",
+            "recent_policy_change": "group_mapping"
+          }
+        },
+        {
+          "title": "SAML response accepted by IdP but rejected by GitHub",
+          "description": "Identity provider shows success, but GitHub denies access and loops users back to login for enterprise org.",
+          "severity": "high",
+          "issueCategory": "saml_sso_failure",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "symptom": "login_loop",
+            "scope": "enterprise",
+            "first_seen": "post_domain_verification"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 6,
+      "scenarioName": "Repeated unresolved authentication issue",
+      "samples": [
+        {
+          "title": "Third reopen: PAT + SSO access still failing in automation",
+          "description": "This is the third support case in two weeks. Previous steps did not restore org API access for deployment automation.",
+          "severity": "high",
+          "issueCategory": "repeated_auth_issue",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "token_id": "token_acme_gha_01",
+            "prior_case_count": "3",
+            "repeat_pattern": "same_error_signature"
+          }
+        },
+        {
+          "title": "Recurring SSO authorization drift for service account token",
+          "description": "Token periodically loses effective access to org resources despite repeated reauthorization and policy checks.",
+          "severity": "high",
+          "issueCategory": "repeated_auth_issue",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "token_id": "token_globex_pat_01",
+            "recurrence_interval": "weekly",
+            "manual_reauth_attempted": "true"
+          }
+        },
+        {
+          "title": "Multiple failed resolutions for mixed PAT scope and SSO problem",
+          "description": "Support history shows prior clarifications but issue remains unresolved and now blocks monthly compliance exports.",
+          "severity": "critical",
+          "issueCategory": "repeated_auth_issue",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "token_id": "token_acme_gha_01",
+            "business_impact": "compliance_reporting",
+            "escalation_requested_by_customer": "true"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 7,
+      "scenarioName": "Ambiguous complaint",
+      "samples": [
+        {
+          "title": "GitHub is broken for our org this morning",
+          "description": "Everything is failing for our developers. Nothing works right now and we need urgent help.",
+          "severity": "high",
+          "issueCategory": "ambiguous_incident_report",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "details_level": "low",
+            "channel": "chat",
+            "requires_clarification": "true"
+          }
+        },
+        {
+          "title": "Platform unstable, can you fix this now",
+          "description": "Customer reports random failures but does not provide endpoint, workflow, users, or timestamps.",
+          "severity": "medium",
+          "issueCategory": "ambiguous_incident_report",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "details_level": "none",
+            "initial_sentiment": "frustrated",
+            "requires_clarification": "true"
+          }
+        },
+        {
+          "title": "Organization cannot work on GitHub",
+          "description": "Customer message says they are blocked but gives no reproducible steps, no errors, and no affected feature area.",
+          "severity": "high",
+          "issueCategory": "ambiguous_incident_report",
+          "orgId": null,
+          "customerId": null,
+          "metadata": {
+            "details_level": "none",
+            "org_identified": "false",
+            "needs_identity_validation": "true"
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": 8,
+      "scenarioName": "Billing plus technical issue",
+      "samples": [
+        {
+          "title": "Past-due invoice and failing deployment API tokens",
+          "description": "Finance sees unpaid invoice warning and engineering automation tokens now fail for org repos during deployments.",
+          "severity": "critical",
+          "issueCategory": "billing_plus_technical",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "billing_status_reported": "past_due",
+            "technical_symptom": "token_auth_failure",
+            "workflow_impact": "production_deployments"
+          }
+        },
+        {
+          "title": "Upgrade requested, paid feature still locked and API jobs down",
+          "description": "Customer requested plan upgrade but still cannot access expected features and scheduled API jobs are failing with auth errors.",
+          "severity": "high",
+          "issueCategory": "billing_plus_technical",
+          "orgId": "org_globex_api",
+          "customerId": "cust_globex",
+          "metadata": {
+            "pending_change": "upgrade_requested",
+            "feature_name": "advanced_security",
+            "automation_impact": "nightly_sync"
+          }
+        },
+        {
+          "title": "Renewal confusion plus sudden rate-limit failures",
+          "description": "Customer disputes billing state after renewal and reports API workflows now throttled heavily, causing missed SLAs.",
+          "severity": "high",
+          "issueCategory": "billing_plus_technical",
+          "orgId": "org_acme_platform",
+          "customerId": "cust_acme",
+          "metadata": {
+            "billing_event": "renewal_cycle",
+            "technical_symptom": "rate_limit_spike",
+            "business_impact": "sla_risk"
+          }
+        }
+      ]
+    }
+  ]
+}

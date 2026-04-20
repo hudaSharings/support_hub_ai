@@ -31,8 +31,40 @@ type DocEvidence = {
 
 type ToolEvidence = {
   tool_name?: string;
+  tools_used?: string[];
   findings?: Record<string, unknown>;
+  important_findings?: string[];
   status?: string;
+};
+
+const dedupeDocsEvidence = (items: DocEvidence[]): DocEvidence[] => {
+  const seen = new Set<string>();
+  const deduped: DocEvidence[] = [];
+  for (const item of items) {
+    const key = `${item.source_url ?? ""}::${item.excerpt ?? ""}::${item.relevance_score ?? ""}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    deduped.push(item);
+  }
+  return deduped;
+};
+
+const toLines = (value: unknown): string[] => {
+  if (!value) {
+    return [];
+  }
+  if (Array.isArray(value)) {
+    return value.map((v) => String(v));
+  }
+  if (typeof value === "string") {
+    return [value];
+  }
+  if (typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>).map(([k, v]) => `${k}: ${String(v)}`);
+  }
+  return [String(value)];
 };
 
 export default async function CaseDetailPage({ params }: Props) {
@@ -43,7 +75,7 @@ export default async function CaseDetailPage({ params }: Props) {
   if (detail.caseRecord.orgId !== session.orgId) notFound();
 
   const { caseRecord, latestOutcome, runs } = detail;
-  const docsEvidence = (latestOutcome?.docsEvidence ?? []) as DocEvidence[];
+  const docsEvidence = dedupeDocsEvidence((latestOutcome?.docsEvidence ?? []) as DocEvidence[]);
   const toolEvidence = (latestOutcome?.toolEvidence ?? []) as ToolEvidence[];
   const citations = docsEvidence.slice(0, 3);
 
@@ -202,10 +234,37 @@ export default async function CaseDetailPage({ params }: Props) {
                 <p>
                   <span className="font-medium">Status:</span> {tool.status ?? "unknown"}
                 </p>
-                <p className="mt-1">
-                  <span className="font-medium">Findings:</span>{" "}
-                  {tool.findings ? JSON.stringify(tool.findings) : "No findings"}
-                </p>
+                {tool.tools_used && tool.tools_used.length > 0 ? (
+                  <div className="mt-2">
+                    <p className="font-medium">Tools used</p>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {tool.tools_used.map((name, toolIndex) => (
+                        <span
+                          key={`${tool.tool_name ?? "tool"}-${name}-${toolIndex}`}
+                          className="rounded border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                        >
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                <div className="mt-2">
+                  <p className="font-medium">Important findings</p>
+                  {(() => {
+                    const lines = [...toLines(tool.important_findings), ...toLines(tool.findings)];
+                    if (lines.length === 0) {
+                      return <p className="mt-1 text-muted-foreground">No findings</p>;
+                    }
+                    return (
+                      <ul className="mt-1 list-disc space-y-0.5 pl-5 text-muted-foreground">
+                        {lines.map((line, lineIndex) => (
+                          <li key={`${tool.tool_name ?? "tool"}-${index}-${lineIndex}`}>{line}</li>
+                        ))}
+                      </ul>
+                    );
+                  })()}
+                </div>
               </div>
             ))}
           </div>

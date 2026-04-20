@@ -102,6 +102,10 @@ const persistOutcome = async (caseId: string, output: ResolverOutput) => {
   const existing = await db.query.supportCaseAiOutcomes.findFirst({
     where: eq(supportCaseAiOutcomes.caseId, caseId),
   });
+  const normalizedToolEvidence = normalizeToolEvidence(output);
+  const normalizedDocsEvidence = normalizeDocsEvidence(output.docs_evidence);
+  const normalizedMissingInformation =
+    output.missing_information ?? inferMissingInformationFromFindings(output.important_findings);
 
   if (!existing) {
     await db.insert(supportCaseAiOutcomes).values({
@@ -111,9 +115,9 @@ const persistOutcome = async (caseId: string, output: ResolverOutput) => {
       decisionRationale: output.decision_rationale ?? null,
       customerResponse: output.customer_response ?? null,
       internalNote: output.internal_note ?? null,
-      missingInformation: output.missing_information ?? [],
-      docsEvidence: output.docs_evidence ?? [],
-      toolEvidence: output.tool_evidence ?? [],
+      missingInformation: normalizedMissingInformation,
+      docsEvidence: normalizedDocsEvidence,
+      toolEvidence: normalizedToolEvidence,
       escalationArtifactId: output.escalation_artifact_id ?? null,
     });
     return;
@@ -127,13 +131,73 @@ const persistOutcome = async (caseId: string, output: ResolverOutput) => {
       decisionRationale: output.decision_rationale ?? null,
       customerResponse: output.customer_response ?? null,
       internalNote: output.internal_note ?? null,
-      missingInformation: output.missing_information ?? [],
-      docsEvidence: output.docs_evidence ?? [],
-      toolEvidence: output.tool_evidence ?? [],
+      missingInformation: normalizedMissingInformation,
+      docsEvidence: normalizedDocsEvidence,
+      toolEvidence: normalizedToolEvidence,
       escalationArtifactId: output.escalation_artifact_id ?? null,
       updatedAt: new Date(),
     })
     .where(eq(supportCaseAiOutcomes.caseId, caseId));
+};
+
+const normalizeToolEvidence = (output: ResolverOutput): Record<string, unknown>[] => {
+  const directToolEvidence = output.tool_evidence ?? [];
+  if (directToolEvidence.length > 0) {
+    return directToolEvidence;
+  }
+
+  const toolsUsed = output.tools_used ?? [];
+  const importantFindings = output.important_findings ?? [];
+  if (toolsUsed.length === 0 && importantFindings.length === 0) {
+    return [];
+  }
+
+  const fallbackTool = {
+    tool_name: "resolver_reported_tools",
+    tool_source: "resolver_output",
+    success: true,
+    findings: importantFindings,
+    tools_used: toolsUsed,
+    status: toolsUsed.length > 0 ? "completed" : "unknown",
+  } satisfies Record<string, unknown>;
+
+  return [fallbackTool];
+};
+
+const inferMissingInformationFromFindings = (importantFindings?: string[]): string[] => {
+  if (!importantFindings || importantFindings.length === 0) {
+    return [];
+  }
+  const combined = importantFindings.join(" ").toLowerCase();
+  if (combined.includes("missing") || combined.includes("need") || combined.includes("required")) {
+    return importantFindings;
+  }
+  return [];
+};
+
+const normalizeDocsEvidence = (
+  docsEvidence?: Record<string, unknown>[],
+): Record<string, unknown>[] => {
+  if (!docsEvidence || docsEvidence.length === 0) {
+    return [];
+  }
+
+  const seen = new Set<string>();
+  const deduped: Record<string, unknown>[] = [];
+
+  for (const item of docsEvidence) {
+    const source = String(item.source_url ?? "").trim();
+    const excerpt = String(item.excerpt ?? "").trim();
+    const score = String(item.relevance_score ?? "");
+    const key = `${source}::${excerpt}::${score}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    deduped.push(item);
+  }
+
+  return deduped;
 };
 
 export const resolveCase = async (caseId: string) => {

@@ -30,10 +30,7 @@ const seedProviders = async () => {
   const db = getDb();
   await db
     .insert(resolverProviders)
-    .values([
-      { name: "beginner", baseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000" },
-      { name: "standard", baseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000" },
-    ])
+    .values([{ name: "resolver", baseUrl: process.env.RESOLVER_BASE_URL ?? "http://localhost:8000" }])
     .onConflictDoUpdate({
       target: resolverProviders.name,
       set: { active: true },
@@ -368,6 +365,14 @@ const seedUsersAndMemberships = async () => {
         customerId: "cust_acme",
         role: "admin",
         isDefault: true,
+      },
+      {
+        membershipId: "mem_super_user_alice_org_globex_api",
+        userId: "user_alice",
+        orgId: "org_globex_api",
+        customerId: "cust_globex",
+        role: "admin",
+        isDefault: false,
       },
       {
         membershipId: "mem_bob_acme",

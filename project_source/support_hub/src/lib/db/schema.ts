@@ -27,7 +27,7 @@ export const decisionEnum = pgEnum("resolver_decision", [
   "escalate",
 ]);
 
-export const providerEnum = pgEnum("resolver_provider", ["beginner", "standard"]);
+export const providerEnum = pgEnum("resolver_provider", ["resolver"]);
 export const userRoleEnum = pgEnum("user_role", ["agent", "admin", "viewer"]);
 export const globalRoleEnum = pgEnum("global_role", ["user", "super_admin"]);
 

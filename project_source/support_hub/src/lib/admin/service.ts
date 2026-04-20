@@ -12,11 +12,43 @@ const slugify = (value: string) =>
     .replace(/^_+|_+$/g, "");
 
 const suffix = () => Date.now().toString().slice(-8);
+const superAdminMembershipId = (userId: string, orgId: string) => `mem_super_${userId}_${orgId}`;
+
+const ensureSuperAdminsMappedToAllOrgs = async () => {
+  const db = getDb();
+  const [superAdmins, orgs] = await Promise.all([
+    db.query.appUsers.findMany({
+      where: eq(appUsers.globalRole, "super_admin"),
+    }),
+    db.query.githubOrganizations.findMany(),
+  ]);
+
+  for (const admin of superAdmins) {
+    for (const org of orgs) {
+      if (!org.customerId) {
+        continue;
+      }
+      const membershipId = superAdminMembershipId(admin.userId, org.orgId);
+      await db
+        .insert(userOrgMemberships)
+        .values({
+          membershipId,
+          userId: admin.userId,
+          orgId: org.orgId,
+          customerId: org.customerId,
+          role: "admin",
+          isDefault: admin.defaultOrgId === org.orgId,
+        })
+        .onConflictDoNothing({ target: userOrgMemberships.membershipId });
+    }
+  }
+};
 
 export const listAdminData = async (session: SessionContext) => {
   const db = getDb();
 
   if (session.isSuperAdmin) {
+    await ensureSuperAdminsMappedToAllOrgs();
     const [orgs, users, memberships, customerRows] = await Promise.all([
       db.query.githubOrganizations.findMany({
         orderBy: [asc(githubOrganizations.orgName)],
@@ -100,6 +132,8 @@ export const createOrganization = async (input: {
     billingStatus: "paid",
     ssoEnabled: false,
   });
+
+  await ensureSuperAdminsMappedToAllOrgs();
 };
 
 export const createUserWithMembership = async (input: {

@@ -33,7 +33,6 @@ Open <http://localhost:3000>.
 ## Required environment variables
 
 - `DATABASE_URL` - Neon connection string
-- `RESOLVER_PROVIDER` - `beginner` or `standard`
 - `RESOLVER_BASE_URL` - e.g. `http://localhost:8000` (change this when switching resolver backend)
 - `NEXT_PUBLIC_APP_NAME` - UI title
 
@@ -49,7 +48,6 @@ python3 -m src.app.main --serve-api --host 0.0.0.0 --port 8000
 Then in `support_hub`, set:
 
 ```bash
-RESOLVER_PROVIDER=beginner
 RESOLVER_BASE_URL=http://localhost:8000
 ```
 
@@ -64,6 +62,12 @@ npm run db:seed
 ```
 
 The seed is idempotent and safe to run multiple times.
+
+For richer demo walkthroughs mapped to all `Final_kata` required scenarios (multiple samples per scenario), use:
+
+- `project_source/support_hub/docs/demo_case_samples.json`
+
+You can copy each sample's `title`, `description`, `severity`, `issueCategory`, and `metadata` into the Create Case form, then run Resolve Case against your Python resolver backend.
 
 ## Auth and org assignment
 
