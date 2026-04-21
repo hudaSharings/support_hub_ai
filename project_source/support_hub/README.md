@@ -69,6 +69,8 @@ For richer demo walkthroughs mapped to all `Final_kata` required scenarios (mult
 
 You can copy each sample's `title`, `description`, `severity`, `issueCategory`, and `metadata` into the Create Case form, then run Resolve Case against your Python resolver backend.
 
+The JSON file includes a `byExpectedDecision` section with examples aimed at **clarify**, **escalate**, and **resolve** outcomes (the beginner resolver applies small policy rules on top of the LLM so these demos stay reproducible).
+
 ## Auth and org assignment
 
 - The app now uses seeded `app_users` and `user_org_memberships` for a realistic multi-org setup.

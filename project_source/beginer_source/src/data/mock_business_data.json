@@ -9,6 +9,16 @@
       "current_plan": "free",
       "billing_status": "past_due",
       "sso_enabled": false
+    },
+    "org_acme_platform": {
+      "current_plan": "team",
+      "billing_status": "active",
+      "sso_enabled": true
+    },
+    "org_globex_api": {
+      "current_plan": "team",
+      "billing_status": "past_due",
+      "sso_enabled": false
     }
   },
   "entitlements": {
@@ -16,6 +26,12 @@
       "advanced_security": true
     },
     "org-free": {
+      "advanced_security": false
+    },
+    "org_acme_platform": {
+      "advanced_security": true
+    },
+    "org_globex_api": {
       "advanced_security": false
     }
   },
@@ -31,18 +47,40 @@
       "permissions": ["repo"],
       "revoked": false,
       "expired": false
+    },
+    "token_acme_gha_01": {
+      "sso_authorized": true,
+      "permissions": ["checks:write", "contents:read"],
+      "revoked": false,
+      "expired": false
+    },
+    "token_globex_pat_01": {
+      "sso_authorized": false,
+      "permissions": ["repo"],
+      "revoked": false,
+      "expired": false
     }
   },
   "api_usage": {
     "org-pro": {
       "request_count": 12000,
       "throttled_requests": 390
+    },
+    "org_acme_platform": {
+      "request_count": 12000,
+      "throttled_requests": 390
+    },
+    "org_globex_api": {
+      "request_count": 9500,
+      "throttled_requests": 210
     }
   },
   "case_history": {
     "org-pro": [
       "repeated unresolved token issue"
-    ]
+    ],
+    "org_acme_platform": [],
+    "org_globex_api": []
   },
   "incidents": {
     "api": [],

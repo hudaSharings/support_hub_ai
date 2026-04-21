@@ -4,6 +4,7 @@ import re
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
+from src.agents.tooling.registry import TOOL_NAMES
 from src.app.config import settings
 from src.app.llm_client import complete_chat
 
@@ -14,8 +15,7 @@ TRIAGE_SYSTEM_PROMPT = (
     "Return strict JSON only with fields: "
     "issue_type, required_tools, missing_information. "
     "Valid issue_type: billing, entitlement, token_auth, rest_api, saml_identity, mixed, unknown. "
-    "Valid tools: get_subscription_state, get_entitlement_status, diagnose_token_auth, "
-    "get_case_history, get_api_usage, get_service_incidents."
+    f"Valid tools: {', '.join(TOOL_NAMES)}."
 )
 
 

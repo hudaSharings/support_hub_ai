@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <header className="border-b bg-background">
-          <div className="mx-auto flex w-full max-w-5xl items-center justify-end px-6 py-3">
+          <div className="mx-auto flex w-full max-w-5xl items-center px-6 py-3">
             <SessionSwitcher />
           </div>
         </header>

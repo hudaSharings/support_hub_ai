@@ -33,6 +33,11 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             ? "Super admin can manage all organizations, users, and role mappings."
             : "Org admin can manage users within the current organization."}
         </p>
+        {session.isSuperAdmin ? (
+          <p className="rounded-md border border-border bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+            Super admins are automatically members of every organization—existing orgs and any new org you create—so they can access org-scoped data without adding a separate membership each time.
+          </p>
+        ) : null}
       </header>
 
       {params?.message ? (

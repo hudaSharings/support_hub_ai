@@ -4,7 +4,8 @@ This project is a beginner-friendly but complete kata implementation template wi
 - LangGraph-based multi-agent workflow (triage, retrieval, tools, decision, response)
 - Chroma vector DB + sentence-transformer embeddings for RAG
 - Pydantic-based input/output/tool contracts
-- local tools plus MCP-backed tools (real HTTP call path + fallback)
+- centralized tool registry + tooling executor for explicit tool dispatch
+- local tools plus MCP-backed tools via MCP router (capability checks + fallback)
 - LangChain prompt + parser based LLM orchestration with safe fallback when API/network is unavailable
 - full scenario runner for the 8 required scenarios
 - outputs including customer and internal notes
@@ -100,3 +101,11 @@ pytest
 - `docs/ingest_guide.md`
 - `docs/limitations_and_next_steps.md`
 - `docs/kata_requirements_coverage.md`
+
+## Agent module layout
+
+- `src/agents/triage/{agent,llm}.py`
+- `src/agents/retrieval/agent.py`
+- `src/agents/tooling/{executor,registry}.py`
+- `src/agents/decision/{agent,llm}.py`
+- `src/agents/response/{agent,llm}.py`

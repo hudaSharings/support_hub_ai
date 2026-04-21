@@ -1,9 +1,9 @@
-from src.rag.corpus_loader import load_corpus
+from src.app.config import settings
+from src.domain.models import SupportGraphState
 from src.rag.chunker import chunk_docs
+from src.rag.corpus_loader import load_corpus
 from src.rag.indexer import build_vector_index
 from src.rag.retriever import retrieve_evidence
-from src.domain.models import SupportGraphState
-from src.app.config import settings
 
 _VECTOR_STORE = None
 

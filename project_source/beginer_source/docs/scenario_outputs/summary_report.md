@@ -6,7 +6,7 @@
 
 ## Scenario Status
 - scenario_1: passed (decision=resolve)
-- scenario_2: passed (decision=clarify)
+- scenario_2: passed (decision=resolve)
 - scenario_3: passed (decision=escalate)
 - scenario_4: passed (decision=resolve)
 - scenario_5: passed (decision=escalate)

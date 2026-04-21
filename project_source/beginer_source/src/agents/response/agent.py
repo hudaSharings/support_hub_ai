@@ -1,6 +1,6 @@
+from src.agents.response.llm import generate_with_llm
 from src.domain.enums import DecisionType
 from src.domain.models import SupportGraphState
-from src.agents.response_llm import generate_with_llm
 
 
 def generate_responses(state: SupportGraphState) -> SupportGraphState:
@@ -17,11 +17,20 @@ def generate_responses(state: SupportGraphState) -> SupportGraphState:
             raise ValueError("Incomplete response payload from LLM.")
     except Exception:
         if state.decision == DecisionType.CLARIFY:
-            state.customer_response = (
-                "To proceed, please share organization id/name, failing action or endpoint, timestamp, "
-                "and the exact error message."
-            )
-            state.internal_note = "Clarification requested due to missing information."
+            missing = [str(x).strip() for x in state.missing_information if str(x).strip()]
+            if missing:
+                needs = ", ".join(missing)
+                state.customer_response = (
+                    "To proceed, please share the following missing details: "
+                    f"{needs}. Once we have these, we can continue resolution."
+                )
+                state.internal_note = f"Clarification requested for missing fields: {needs}."
+            else:
+                state.customer_response = (
+                    "We need one concrete failing example to continue: include the exact action or endpoint, "
+                    "timestamp, and full error message."
+                )
+                state.internal_note = "Clarification requested because current evidence is insufficient."
             return state
 
         if state.decision == DecisionType.ESCALATE:

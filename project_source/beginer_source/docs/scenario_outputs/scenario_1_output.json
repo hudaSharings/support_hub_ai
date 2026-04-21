@@ -12,12 +12,6 @@
       "chunk_id": "saml_configuration_reference_-_github_enterprise_cloud_docs::chunk::16",
       "excerpt": "r Entra OIDC app Conditional access policy Disable authentication Provision mana",
       "relevance_score": 0.08999727855764439
-    },
-    {
-      "source_url": "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise",
-      "chunk_id": "configuring_saml_single_sign-on_for_your_enterprise_-_github_enterprise_cloud_docs::chunk::2",
-      "excerpt": " ask Copilot Search or ask Copilot Open menu Open Sidebar Enterprise administrators / Identity and access management / S",
-      "relevance_score": 0.044262047364532875
     }
   ],
   "tools_used": [

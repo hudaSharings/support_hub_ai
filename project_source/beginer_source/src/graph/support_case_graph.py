@@ -6,11 +6,11 @@ from langgraph.graph import END, START, StateGraph
 from src.domain.models import SupportCaseInput, SupportGraphState
 from src.domain.outputs import SupportResolutionOutput
 from src.domain.enums import DecisionType, IssueType
-from src.agents.triage_agent import triage
-from src.agents.retrieval_agent import gather_docs_evidence
-from src.agents.tool_agent import gather_tool_evidence
-from src.agents.decision_agent import decide
-from src.agents.response_agent import generate_responses
+from src.agents.decision.agent import decide
+from src.agents.response.agent import generate_responses
+from src.agents.retrieval.agent import gather_docs_evidence
+from src.agents.tooling.executor import gather_tool_evidence
+from src.agents.triage.agent import triage
 
 
 class GraphState(TypedDict):

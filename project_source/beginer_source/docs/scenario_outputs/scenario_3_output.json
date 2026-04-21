@@ -12,12 +12,6 @@
       "chunk_id": "quickstart_for_github_rest_api_-_github_docs::chunk::6",
       "excerpt": "n tokens Endpoints for GitHub App user tokens Endpoints for fine-grained PATs Permissions for GitHub Apps Permissions fo",
       "relevance_score": 0.13205646162363582
-    },
-    {
-      "source_url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
-      "chunk_id": "rate_limits_for_the_rest_api_-_github_docs::chunk::6",
-      "excerpt": "tHub App installation tokens Endpoints for GitHub App user tokens Endpoints for fine-grained PATs Permissions for GitHub",
-      "relevance_score": 0.12469500876902595
     }
   ],
   "tools_used": [
@@ -29,7 +23,7 @@
     "{'org_id': 'org-pro', 'events': ['repeated unresolved token issue']}"
   ],
   "decision": "escalate",
-  "decision_rationale": "Repeated unresolved case history indicates escalation path.",
+  "decision_rationale": "Policy: repeated or historically unresolved authentication issue; route to specialist review.",
   "customer_response": "We have escalated this case to a specialist team and will update you shortly.",
   "internal_note": "Escalation response generated via fallback template. Escalation artifact: ESC-SCN-3",
   "escalation_artifact_id": "ESC-SCN-3",

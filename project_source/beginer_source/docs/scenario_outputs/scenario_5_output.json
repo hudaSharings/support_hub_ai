@@ -12,12 +12,6 @@
       "chunk_id": "troubleshooting_saml_authentication_-_github_enterprise_cloud_docs::chunk::15",
       "excerpt": " enterprise Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure SAML on Okta ",
       "relevance_score": 0.6450569856644736
-    },
-    {
-      "source_url": "https://docs.github.com/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/saml-configuration-reference",
-      "chunk_id": "saml_configuration_reference_-_github_enterprise_cloud_docs::chunk::15",
-      "excerpt": "e Troubleshoot SAML SSO Authentication for managed users Configure SAML Configure OIDC Configure SAML on Okta Find ID fo",
-      "relevance_score": 0.6357473790311448
     }
   ],
   "tools_used": [
@@ -28,10 +22,10 @@
   "important_findings": [
     "{'org_id': 'org-pro', 'events': ['repeated unresolved token issue']}",
     "{'component': 'api', 'incidents': []}",
-    "{'component': 'api', 'incidents': []}"
+    "{}"
   ],
   "decision": "escalate",
-  "decision_rationale": "Repeated unresolved case history indicates escalation path.",
+  "decision_rationale": "Policy: repeated or historically unresolved authentication issue; route to specialist review.",
   "customer_response": "We have escalated this case to a specialist team and will update you shortly.",
   "internal_note": "Escalation response generated via fallback template. Escalation artifact: ESC-SCN-5",
   "escalation_artifact_id": "ESC-SCN-5",

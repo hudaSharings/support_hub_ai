@@ -2,8 +2,81 @@
   "notes": [
     "Use these as Create Case payload templates in support_hub.",
     "caseId is auto-generated in the app; keep title/description/severity/category and optional metadata.",
-    "Set orgId/customerId through logged-in org membership (or align manually if using scripts)."
+    "Set orgId/customerId through logged-in org membership (or align manually if using scripts).",
+    "Resolver decisions: the Python service applies policy after the LLM — clarify when triage lists missing_information (e.g. vague 'GitHub is broken' tickets), escalate for auth-related cases with explicit repeat markers (e.g. 'third reopen') or when get_case_history returns 'repeated unresolved…' events (see mock org-pro).",
+    "Mock tool data keys org_acme_platform and org_globex_api match the db:seed org ids; org-pro is for fixture-style escalation demos (create that org in /admin if needed)."
   ],
+  "byExpectedDecision": {
+    "clarify": [
+      {
+        "title": "GitHub is broken for our org this morning",
+        "description": "Everything is failing for our developers. Nothing works right now and we need urgent help.",
+        "severity": "high",
+        "issueCategory": "ambiguous_incident_report",
+        "orgId": "org_acme_platform",
+        "customerId": "cust_acme",
+        "metadata": {}
+      },
+      {
+        "title": "Platform unstable — need help now",
+        "description": "Customer reports random failures but does not provide endpoint, workflow, users, or timestamps.",
+        "severity": "medium",
+        "issueCategory": "ambiguous_incident_report",
+        "orgId": "org_globex_api",
+        "customerId": "cust_globex",
+        "metadata": {}
+      }
+    ],
+    "escalate": [
+      {
+        "title": "Third reopen: PAT + SSO access still failing in automation",
+        "description": "This is the third support case in two weeks. Previous steps did not restore org API access for deployment automation (token and SSO).",
+        "severity": "high",
+        "issueCategory": "repeated_auth_issue",
+        "orgId": "org_acme_platform",
+        "customerId": "cust_acme",
+        "metadata": { "token_id": "token_acme_gha_01" }
+      },
+      {
+        "title": "PAT fails on org APIs — repeated unresolved per prior cases",
+        "description": "Developer PAT still fails for organization resources after multiple unsuccessful resolution attempts documented in prior tickets.",
+        "severity": "high",
+        "issueCategory": "token_auth",
+        "orgId": "org_globex_api",
+        "customerId": "cust_globex",
+        "metadata": { "token_id": "token_globex_pat_01" }
+      },
+      {
+        "title": "Optional: case history tool shows repeated unresolved (use mock org-pro)",
+        "description": "Same PAT symptom as scenario 3 fixtures; org-pro mock data includes repeated unresolved token events so tooling surfaces escalation.",
+        "severity": "medium",
+        "issueCategory": "token_auth",
+        "orgId": "org-pro",
+        "customerId": "cust_acme",
+        "metadata": { "token_id": "token-fail" }
+      }
+    ],
+    "resolve": [
+      {
+        "title": "REST jobs return 429 — likely rate limit, not outage",
+        "description": "Scheduled REST calls started returning HTTP 429 with retry-after headers this week; customer suspects an outage but metrics look like throttling.",
+        "severity": "medium",
+        "issueCategory": "api_rate_limit",
+        "orgId": "org_acme_platform",
+        "customerId": "cust_acme",
+        "metadata": {}
+      },
+      {
+        "title": "Paid feature missing — check entitlement vs plan",
+        "description": "Org admin expects advanced security controls in repo settings but UI shows upgrade prompts despite believing they are on Team.",
+        "severity": "medium",
+        "issueCategory": "entitlement_dispute",
+        "orgId": "org_globex_api",
+        "customerId": "cust_globex",
+        "metadata": { "feature_name": "advanced_security" }
+      }
+    ]
+  },
   "scenarios": [
     {
       "scenarioId": 1,

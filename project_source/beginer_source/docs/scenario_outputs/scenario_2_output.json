@@ -12,12 +12,6 @@
       "chunk_id": "upgrading_your_account&#x27;s_plan_-_github_docs::chunk::14",
       "excerpt": "ubleshooting Declined card Locked account Azure sub connection Enterprise license usage Reference Actions runner pricing",
       "relevance_score": 0.20101974826176827
-    },
-    {
-      "source_url": "https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses/downgrade-plan",
-      "chunk_id": "downgrading_your_account&#x27;s_plan_-_github_docs::chunk::14",
-      "excerpt": " Troubleshooting Declined card Locked account Azure sub connection Enterprise license usage Reference Actions runner pri",
-      "relevance_score": 0.19971167867138417
     }
   ],
   "tools_used": [
@@ -28,10 +22,10 @@
     "{'org_id': 'org-free', 'plan': 'free', 'billing_status': 'past_due'}",
     "{'org_id': 'org-free', 'feature_name': 'advanced_security', 'enabled': False}"
   ],
-  "decision": "clarify",
+  "decision": "resolve",
   "decision_rationale": "Auth/entitlement mismatch needs validation or specialist escalation.",
-  "customer_response": "To proceed, please share organization id/name, failing action or endpoint, timestamp, and the exact error message.",
-  "internal_note": "Clarification requested due to missing information.",
+  "customer_response": "We identified likely cause(s) and recommended actions based on documentation and account checks.",
+  "internal_note": "Resolved using combined documentation citations and tool findings.",
   "escalation_artifact_id": null,
   "metadata": {}
 }

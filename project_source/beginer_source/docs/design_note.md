@@ -8,7 +8,7 @@
 - Multi-agent LangGraph node sequence:
   1. Triage agent
   2. Retrieval agent (RAG)
-  3. Tool agent (local + MCP)
+  3. Tooling executor (registry-driven local + MCP execution)
   4. Decision agent
   5. Response agent
 - Data and retrieval foundations:
@@ -23,7 +23,10 @@
 ## Why this design
 - Docs-only reasoning is insufficient for support resolution.
 - Case-specific checks are represented through tools.
-- MCP-backed incident lookup uses HTTP JSON-RPC with local fallback for resilience.
+- Tool execution is centralized through `src/agents/tooling/registry.py` and `src/agents/tooling/executor.py`.
+- MCP calls are routed via `src/tools/mcp/router.py` (internal tool name -> MCP method mapping).
+- Router performs capability checks through `tools/list` when supported by server, and falls back safely.
+- MCP-backed incident lookup keeps local fallback for resilience.
 
 ## Outcome policy
 - `clarify` when critical identifiers are missing.

@@ -12,12 +12,6 @@
       "chunk_id": "rate_limits_for_the_rest_api_-_github_docs::chunk::0",
       "excerpt": "Rate limits for the REST API - GitHub Docs Skip to main content GitHub Docs Version: Free, Pro, &amp; Team Search or ask",
       "relevance_score": 0.3808868190786179
-    },
-    {
-      "source_url": "https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api",
-      "chunk_id": "authenticating_to_the_rest_api_-_github_docs::chunk::4",
-      "excerpt": "on Using the REST API Getting started Rate limits Pagination Libraries Best practices Troubleshooting Timezones CORS and",
-      "relevance_score": 0.33270079079144643
     }
   ],
   "tools_used": [
@@ -28,7 +22,7 @@
   "important_findings": [
     "{'request_count': 12000, 'throttled_requests': 390}",
     "{'component': 'api', 'incidents': []}",
-    "{'component': 'api', 'incidents': []}"
+    "{}"
   ],
   "decision": "resolve",
   "decision_rationale": "Tool evidence and docs indicate rate limiting with clear mitigation.",

@@ -15,7 +15,13 @@ DECISION_SYSTEM_PROMPT = (
 )
 
 
-def decide_with_llm(case_title: str, case_description: str, missing_information: list[str], docs_evidence: list[dict], tool_evidence: list[dict]) -> dict:
+def decide_with_llm(
+    case_title: str,
+    case_description: str,
+    missing_information: list[str],
+    docs_evidence: list[dict],
+    tool_evidence: list[dict],
+) -> dict:
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", DECISION_SYSTEM_PROMPT),
